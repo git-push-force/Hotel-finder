@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Гостиницы</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+
+    <ion-item>
+      <ion-label>Цена от</ion-label>
+      <ion-input #from type="text" pattern="[0-9]"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Цена до</ion-label>
+      <ion-input #to type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Наличие парковки</ion-label>
+      <ion-checkbox #parking color="dark" checked="false"></ion-checkbox>
+    </ion-item>
+
+    <button 
+      (click)="filter({
+        from: from.value,
+        to: to.value,
+        hasParking: parking.value
+      })" 
+      ion-button full
+    >
+      Подобрать
+    </button>
+  </ion-card>
+
+  <ion-list>
+    <button ion-item *ngFor="let hotel of hotels" (click)="openInfo(hotel)">
+      <ion-avatar item-start>
+        <img src="{{hotel.imageUrl}}">
+      </ion-avatar>
+      <h2>{{hotel.title}}</h2>
+      <p>{{hotel.address}}</p>
+    </button>
+
+    <ion-card *ngIf="!hotels.length">
+      <ion-card-content>
+        <ion-card-title>Нет подходящих отелей</ion-card-title>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>
